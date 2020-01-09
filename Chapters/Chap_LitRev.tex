@@ -1,0 +1,47 @@
+\chapter{INSERT}
+\label{chapterlabel2}
+As stated in the introduction the INSERT project aims to incorporate a SPECT module insert into existing MRI devices. The device will fit into the MRI bore and carry out a simultaneous SPECT and MRI scan of the brain. The challenges faced in this design arise from the need a compact, MR compatible SPECT system.
+\section{Compatibility and Design}
+The traditional SPECT design makes use of a collimator, scintillation crystals and PMT's to acquire a signal. The use of SPECT in an MR environment requires components which are able to function in the presence of a strong magnetic field. In order for simultaneous acquisition the SPECT design must be compact and fit within the MRI bore. To fit these requirements, the INSERT is designed with MR compatible photon detection \cite{7287793} and a novel collimator design \cite{7181734}. As stated previously the PMT is incompatible with the requirements for the INSERT system. 
+\paragraph{}
+It is essential that the SPECT device does not include any materials which are MR incompatible. Magnetic materials must not be present in the SPECT unit. The varying magnetic fields may also induce eddy currents in some metals. These currents can reduce the performance by introducing their own magnetic fields which are detected by the MR coils. 
+\paragraph{}
+The SPECT system must acquire the image data through stationary means. The SPECT unit must not move as motion will cause artefacts in the MRI acquisition. The stationary system will have to collect the information from all angles with a ring of detectors. This furthers the need for a compact system. To ensure there is room for the patient the bed, the scanner is designed with a partial ring structure.
+\section{Photon Detection}
+The INSERT must make use of methods of photon detection without the PMT. This can be achieved through MR compatible solid state devices. The device chosen in the INSERT design is the Silicon Photomultiplier (SiPM), this is a compact solid state device which is able to function within a strong magnetic field, \cite{SCHAART201631}, \cite{0031-9155-56-23-014}. SiPM are formed of thousands of Avalanche Photodiode (APD), functioning in Geiger mode (G-APD). An APD is able to produce a large output current (avalanche current) from even a single charge carrier input, similar to the PMT, however these solid state devices pass carriers through a bulk material such as silicon as opposed to the vacuum used in PMTs, \cite{RENKER200648}. G-APDs consist of a reverse biased PN junction. The PN junction is a boundary composed of a pair of semiconductor materials, known as the P and N type materials. The materials are doped to produce a positive (P type) or negative (N type) region, these define the valence and conductive bands in the semiconductor. When a reverse bias is applied a high resistance junction is created as the band gap increases. The avalanche current is caused by the break down of the high resistance junction as electron hole pairs are produced. A single electron with sufficiently high kinetic energy can ionise the silicon and the resulting pair will travel to opposing bands liberating further electrons and hole, leading to the avalanche. However this design has an intrinsic limitation in which the output is unable to distinguish input magnitude.
+\paragraph{}
+A SiPM is composed in a microcells, a series of SiPM arranged together each generating a combined G-APD avalanche signal, \cite{DINU2015367}. This design overcomes the G-APD limitation as the microcells produce individual localised signals, which give an output proportional to the activation of the microcells. The SiPM are arranged in a minimally spaced array to cover the detector surface with maximum light detection. The SiPM requires a cooling unit to maintain a functioning temperature. The SiPM is optimised to detect the wavelength from the chosen scintillation crystal. A Thallium activated Cesium Iodide (CsI(Tl)) crystal is used for the scintillation of photons. This inorganic crystal was chosen for its high output signal despite its slow performance. The crystal is 8 mm thick and the total thickness of the SiPM with cooling unit and required electronics is 21.69 mm. This thickness is much smaller than the PMT design, and fits in the MRI bore. The crystal and SiPM define an intrinsic resolution of 1 mm for the detector system.
+\section{Collimator}
+The novel collimator unit is essential to the design of the INSERT project. The collimator is designed to account for the size and stationary requirements of the system, constructing a partial ring which aims to maximise sensitivity and reduce dead space. The collimator design chosen is a Multi-Slits Slit Slat (MSS) collimator. This collimator provides a compact design to satisfy the space requirements. The coverage of the collimator must be maximised to account for the limitations in angle coverage from a stationary system. To acquire the desired functional information the sensitivity is also maximised by this coverage design. Figure \ref{fig:MSSColl} demonstrates the design of the MSS collimator. The slits are separated by a sections of two and three slits, with slats across each slit.
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=0.8\textwidth,keepaspectratio]{Collimator_schema} % name of file without extension
+    \caption{The MSS collimator deisign schematic show blue slits with red slats. Figure from \cite{8069508}} \label{fig:MSSColl}
+\end{figure}
+
+\paragraph{}
+The collimator consists of a series of slits which run along the length of the collimator in alternating pairs and triplets, these are labelled the `2 slits' and the `$1 + 2\frac{1}{2}$ slits'. The furthest edge `$2\frac{1}{2}$ slits'  combine with those of the neighbouring collimator to cover a wider angular range across the ring. The field of view (FOV) covered by the slits in the trans-axial plane is 20 cm. The large FOV is a result of the radially position slits and fanned out individual slits. The small system design leads to minification of the object in the the trans-axial plane, within the FOV. The resolution and sensitivity of the slit is given by the pin hole equations (\ref{eqn:pinholeRes},\ref{eqn:pinholeSen}).
+\paragraph{}
+The collimator has a series of parallel slats running perpendicularly all along the length of the slits. These slats define the resolution in the axial direction. The parallel hole equations (\ref{eqn:ParholeRes},\ref{eqn:ParholeSen}) define the resolution and sensitivity of the parallel slats. The axial FOV is 9 cm and induces no minification in this direction. Together the slits and slats define a cylindrical field of view. The slits carry out pin hole collimation and have a fan beam acceptance angle, where the slats have a parallel beam range. The design is expected to give a resolution of 8 - 10 mm within the FOV. The resolutions of the slit and slats can be considered separately  as they span different planes, however the overall sensitivity of the system must be some combination of the slit and slat apertures. Metzler \cite{Metzler2010SlitSlatAM} demonstrates the sensitivity equation derived from this kind of equation.
+\paragraph{} 
+To ensure MR compatibility the collimator must be constructed with a material which does not induce eddy currents, \cite{7286864}. The MSS collimator is constructed with tungsten in order to reduce the effects of eddy currents. Tungsten has a high stopping power however it is brittle, requiring a certain thickness for practical purposes. The collimator septa spacing defines the spatial resolution, this resolution is great limitation in SPECT imaging. The collimator design must balance the trade off between resolution and sensitivity whilst also considering the functionality and shielding, more on this in the next chapter. The shielding of the camera had to consider the practical aspect of device weight. In order to reduce the weight of the collimator the internal material was cut down. This reduced the shielding capabilities but was done so as to keep within the minimum accepted penetration. 
+
+
+\begin{equation} \label{eqn:pinholeRes}
+        R_{pinhole} = \frac{\omega(h + f)}{f}
+\end{equation}
+
+
+\begin{equation} \label{eqn:pinholeSen}
+        g_{pinhole} = \frac{\omega \cos^{3}(\theta)}{16h^{2}}
+\end{equation}
+
+\begin{equation} \label{eqn:ParholeRes}
+        R_{\parallel} = \frac{d(l + z)}{l}
+\end{equation}
+
+
+\begin{equation} \label{eqn:ParholeSen}
+        g_{\parallel} = \frac{d^{4}}{12l^{2}(d+t)^{2}}
+\end{equation}
