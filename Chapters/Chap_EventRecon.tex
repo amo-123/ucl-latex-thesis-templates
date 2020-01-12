@@ -1,13 +1,10 @@
 \chapter{Event Reconstruction}
 \label{chapterlabel}
 
-% This just dumps some pseudolatin in so you can see some text in place.
-\blindtext
-
 \section{Introduction}
-
+Following the initial results of the linearity correction software; the event reconstruction protocol of the system was revisited to  establish how we can improve the quality of the projection data. The event reconstruction makes use of both centroid and ML reconstruction algorithms. 
 \section{Methods}
-
+The event reconstruction is initialised with the centroid reconstruction, making use of a minimum count baseline to remove scatter events. This initial reconstruction is used by the ML algorithm to establish a final projection image. The ML models the detectors spatial response with the LRF of each SiPM individually. The hardware issues lead to a failure in the LRF as faulty channels were not modelled correctly. A solution to this would be to create a new LRF for the faulty detector, however the LRF take a long time to produce; we proposed a normalised LRF approach for more adaptable modelling. The list-mode data was normalised with respect to the mean counts in order to reduce the effect of anomalous events. The LRF and centroid projections were produced using the normalised LM. This ensured they matched and would account for hot spots or faulty channels in the data.
 \section{Results}
 
 \section{Discussion}

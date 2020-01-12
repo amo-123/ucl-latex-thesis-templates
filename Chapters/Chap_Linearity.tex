@@ -1,15 +1,18 @@
 \chapter{Linearity Software}
 \label{chapterlabel}
 
-% This just dumps some pseudolatin in so you can see some text in place.
-\blindtext
 
 \section{Introduction}
-
+The results of the first set of experiments revealed the need to improve our linearity correction software. The experiments showed the need for regular linearity measurements and the existing method proved too long for practical use. We set out to implement a new calibration procedure to reduce time of calibration and allow regular linearity measurements. 
+The new calibration procedure would not make use of the linearity collimators as the individual measurements are too time consuming to be practical. 
+The Mediso linearity correction software was designed for the linearity collimator technique only; a new software would be developed for the use with the new calibration procedure. 
 \section{Methods}
-
+To carry out the linearity correction of the software we must first take a measure of linearity distortion within each detector and the determine a correction transformation for the distortion. The Mediso software measures the distortion of the linearity data and compares it to the known geometry of the collimator. We base our new method on the Mediso technique as it allows a comparative measure for the success of the new linearity correction. Three methods of measuring the linearity distortion was developed and tested. Method methods built a series of spline models which would fit along the linearity line data and determine the distortion in each given line. These spline models where then optimised against the linearity data. The first method took the given spline model and simulated a linearity data set. The simulated data and real data were measured against each other and and by optimising a similarity measure between this data, the spline model was optimised to fit the real data.
+The second method optimised the splines by maximising the coverage of the individual splines along the linearity data. Each line of data was treated separately and by integrating the splines along them, a measure of similarity was determined. 
+Finally a non optimisation method was explore. The previous methods were initialised by finding a few control points along each line of data. The third method considered every point on the spline as a control point and measured a position of each of the linearity data lines. 
+Each method required smoothing and noise removal to aid with the optimisation steps. 
 \section{Results}
 
 \section{Discussion}
-
+The third method required the least pre-processing and so gave a more accurate measure of the linearity distortion.
 \section{Conclusion}

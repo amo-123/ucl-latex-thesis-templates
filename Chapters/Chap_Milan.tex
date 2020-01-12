@@ -5,10 +5,163 @@
 \blindtext
 
 \section{Introduction}
+The INSERT project has overseen the development
+of the first clinical simultaneous Single Photon Emission Computed
+Tomography (SPECT) and Magnetic Resonance Imaging
+(MRI) system. In this work we have for the first time implemented
+a novel calibration procedure and acquired tomographic images
+on the complete clinical system. The calibration procedure was
+carried out here on partial ring system, where it has previously
+been developed on a single detector. The complete calibration
+allowed us to characterise the system as well as parameterise
+the image reconstruction algorithm. The novel system design
+requires correction parameters by characterising the uniformity,
+linearity, and geometry of the system. We were able to carry
+out the tomographic imaging of several phantoms including,
+cylindrical, simplified Jaszczak, and Hoffman phantoms. During
+the reconstruction and processing of the imaging data we were
+able to overcome hardware and software issue which were
+identified in the characterisation stage. Here we were able to
+solve issue involving incomplete data sets and instabilities in
+detectors. The work carried out on the complete system allowed
+us to evaluate the feasibility of clinical use of this system, we
+were able to improve aspects of the calibration procedure and
+overcome seeming inherit limitations in the partial ring system.
+
+INSERT sets out to establish the worlds first clinical simultaneous
+SPECT MRI system. The SPECT insert is
+designed for complete integration with any standard clinical
+MRI system, allowing for the simultaneous acquisition of brain
+images.The stationary insert system is composed of a partial
+ring of 20 CsI:TI scintillation detectors, each with a silicon
+photomultiplier (SiPM) readout. The use of the multimini slitslat
+(MSS), [1], collimator requires the implementation of a
+novel calibration procedure which was established on a single
+detector system, [2]. Though proven successful on a single
+detector, it was essential to verify the methods on a complete
+partial ring system. Carrying out the calibration required
+modifications to the single detector methods; 20 detectors had
+to be calibrated individually and the ring geometry of the
+system introduce space restrictions. Here we have illustrated
+the changes carried out in the transition from a single detector to a complete detector system, outlining the steps required and
+the challenges overcome in our experiments. We also discuss
+the initial results of our extensive tomographic acquisitions
+and the methods involved in the image reconstruction.
+Development of the clinical insert established the MSS collimator,
+[1], this design requires the use of a novel calibration
+and image reconstruction. The calibration procedure generates
+a set of correction parameters from the system, which determine
+the systems uniformity, linearity, and geometry. In this
+work we have outlined the acquisition and application of these
+parameters. These acquisition corrections were applied with a
+software provided by Mediso; producing a set of projection
+images to be constructed.
+As can be expected from the initial testing of a prototype
+the system had issues with both hardware and software during
+this research. We have been able to identify these issue,
+implement corrections to overcome them and plan for future
+improvements to the system and our experimental method. The
+hardware issues reside in an instability in the detector modules.
+Each SiPM readout is comprised of 72 channels, of which 2
+of the total 1,440 produced the incorrect signal and had to be
+switched off during most acquisitions. To correct this we were
+able to amend the Mediso software and produce a correction
+algorithm which was able to interpolate the missing data. This
+provided a powerful means of producing projections despite
+missing data. In future a more stable solution would be to
+replace the readouts. This example demonstrates the kind of
+issues encountered in this work; due to inexperience with a
+novel system, requiring retrospective software solutions, and
+solved in future with final hardware solution.
+The final tomographic images were subject to a number
+of corrections and post processing, some were inherit to the
+system design where others were subject to our experimental
+method. Despite this, we were able to extract the desired
+images parameters and produce a set of phantom acquisitions
+as a proof of concept.
 
 \section{Methods}
+Here we discuss the methods used to acquire the relevant
+data and apply it to our image reconstruction procedure.
+The image reconstruction algorithm follows a standard
+Maximum Likelihood Estimation Maximisation (MLEM) algorithm,
+however, the INSERT system requires the aforementioned
+system corrections and resolution modelling to account for the MSS geometry. The following sections outline
+the methods required for image reconstruction and how we
+adapted them for the complete 20 detector system.
+
+\subsection{Initial System Testing}
+\subsection{Count-rate} 
+\subsection{Energy}
+\subsection{Resolution}
+\subsection{Detector Calibration}
+\subsection{Uniformity}
+The uniformity correction requires a flood scan over each
+detector module, without the collimator. The full detector
+system imposed a restriction in the source position, in order
+to acquire across all modules at once, the source was placed
+at the centre of the bore; 20 cm from any given detector.
+This acquisition required no angular variation in the source,
+this condition was met in the transaxial direction. However,
+we cannot assume this in the axial direction as the source is
+not 5 times the length of the detector, as required by NEMA
+standards.
+The uniformity data was used to generate a model the for
+Light Response Function (LRF) of each of the 72 channels
+in the SiPM readouts. These models were used along side the
+uniformity flood to generate the system correction parameters.
+
+\subsection{Linearity} 
+\subsection{System Calibration}
+\subsection{Geometry}
+The geometric calibration procedure was required to account
+for the MSS geometry. The full ring procedure was not
+changed from the previous design, [2]. The MSS collimator
+is installed and a set of vertical and horizontal capillaries
+are scanned. The acquisitions from set of capillary sources
+are corrected for linearity and uniformity with the previous
+procedures. The resulting images were used to determine
+a set of Twist and Tilt parameters required in the image
+reconstruction. The Twist and Tilt parameters determined the
+angles of distortion in the axial direction and trans-axial
+plane respectively. The angles were calculated by a measure
+of relative position of the capillary sources and modelling
+the distance as a function of the radial position. Extracting
+these parameters allowed us to correct the distortion in the
+projections caused by the collimator geometry.
+The capillary sources served a second purpose; by combining
+the acquisitions we produced an image of 61 capillary
+sources spanning 5 radial positions. This image was used to
+determine the image resolution of the system subject to radial
+position. By modelling the capillaries in a the trans-axial plane
+with a 2D Gaussian, we determined the radial and tangential
+image resolutions.
+
+\subsection{Sensitivity}
+\subsection{Phantom Acquisitions}
+\subsection{Capillary}
+\subsection{Cylinder}
+\subsection{Cold Rods}
+\subsection{Hot Spheres} 
+\subsection{Hoffman}
 
 \section{Results}
+\subsection{Initial System Testing}
+\subsection{Count-rate} 
+\subsection{Energy}
+\subsection{Resolution}
+\subsection{Detector Calibration}
+\subsection{Uniformity}
+\subsection{Linearity} 
+\subsection{System Calibration}
+\subsection{Geometry}
+\subsection{Sensitivity}
+\subsection{Phantom Acquisitions}
+\subsection{Capillary}
+\subsection{Cylinder}
+\subsection{Cold Rods}
+\subsection{Hot Spheres} 
+\subsection{Hoffman}
 
 \section{Discussion}
 

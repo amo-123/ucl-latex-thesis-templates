@@ -6,7 +6,16 @@
 
 \section{Introduction}
 
+SIMIND is a Monte Carlo software developed to simulate clinical Single Photon Emission Tomography (SPECT) systems. The software provides the design for standard clinical simulations, but also allows for the diverse modification of any experimental set up. Here we have implemented a new SPECT system, complete with a novel collimator design. The INSERT scanner is designed for the clinical SPECT acquisition of brain tumours. This system is a stationary, partial ring detector, designed to be a compact and Magnetic Resonance (MR) compatible. The multimini slit-slat (MSS) collimator is a novel design integral to the SPECT insert. This complete clinical system has been implemented in the SIMIND software and initial testing has been carried out here. 
+
+The INSERT project has designed a complete clinical SPECT scanning system, intended for integration with standard Magnetic Resonance Imaging (MRI) systems. This design requires a stationary ring of compact CsI:Tl detectors, with Silicon Photomultiplier (SiPM) readout. The system design has previously been supported by Monte Carlo software, however here for the first time it is designed and tested in SIMIND. SIMIND provides a fast and diverse method of testing a novel system design, providing data to validate experiments and verify data acquisition.
+
+In this work we outline a set of standard experiments carried out with the INSERT system. A set of phantom acquisitions were simulated, using the standard SPECT set up within SIMIND, along with the novel geometry of the MSS partial ring collimator. The data acquired from these experiments are used to verify a set of experiments carried out on the physical system. 
+
 \section{Methods}
+The novel system is defined within the SIMIND environment through a set of geometry files. These define the collimator design, detector specifications, and detector rotation and placement (spanning the partial ring). The experiments carried out involved the standard phantom set up available in SIMIND. Recreating our physical acquisitions, we simulated; capillary, cylindrical, planar, and Jaszczak phantoms. 
+
+The projections acquired were reconstructed with Maximum Likelihood Estimation Maximisation (MLEM) algorithms, accounting for the system geometry by modelling the collimator resolution. The system properties were determined with the use of the capillary sources. The resulting phantom images were compared with that of the physical system.  
 
 \section{Results}
 
