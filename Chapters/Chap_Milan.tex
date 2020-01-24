@@ -1,18 +1,39 @@
 \chapter{Experiments 01}
 \label{chapterlabel}
 
-% Experimental method 
-% Calibration procedure
+
+% Evaluation method and calibration 
 % Detector Cal 
 % System Cal 
 % System evaluation 
 % hard ware issues 
-% software (PERA pg 137 Deb. 65 Il.)
+
 % New Event Recon (killed_LRF, FilteredSpectrum, Normalisation)
 % New Linearity software (3 methods) 
-
+In this chapter the use of the \acrshort{INSERT} scanner is outlined. The calibration procedures and experimental methods explored in this chapter are used to evaluated the system performance. The outcome of this investigation results in the implementation of new data processing methods. 
 
 \section{Introduction}
+The following experiments were carried out at San Raffaele Hospital (Milan), in collaboration with Politecnico di Milano (POLIMI). The system was transported and installed in the nuclear medicine department in order to carry out experiments with radioisotopes such as Technetium-99m. The experiments were carried out using the BULMA software provided by Mediso Ltd (Budapest). The software was designed to operate the system and acquired the raw data from experiments. The raw data was processed and calibrated using the BULMA INSERT$_$GUI package along with existing system data. 
+
+This experiments set out to acquire the first phantom images from the \acrshort{INSERT} system, in order to achieve this the system was first evaluated and calibrated. The count-rate and energy resolution were determined and the system corrections and calibrations for these parameters where carried out at Polimi. The calibration procedures required to correct for event and image reconstruction are out outlined here.
+
+The calibration procedure was developed on a single detector head system \cite{DebCal}, and was tested in this investigation for the first time on the complete \acrshort{INSERT} scanner. This investigation aimed to determine the effectiveness of the proposed calibration method, and evaluate the systems performance and imaging capabilities. The calibration involves two stages, the detector calibration and the system calibration. The event reconstruction is corrected through the detector calibration procedure; a standard linearity and uniformity correction is performed. The image reconstruction is carried out using the geometric and sensitivity information obtained by the system calibration.
+
+\subsection{Detector Calibration}
+The detector calibration is carried out by collecting uniformity and linearity data from each detector head. The uniformity data is collected by performing a flood scan of a single point source located in the centre of the scanner\acrshort{FOV}. This scan is carried out with the collimator attached; short scans are required due to the high counts with no collimation. This scanned was carried out on the first day as a quick check of detector coverage and performance. The scans are used to correct for uniformity in the subsequent phantom acquisitions. 
+
+As discussed previously the planar event reconstruction is carried out in a two step method; a centroid reconstruction is used to initialise an \acrshort{MLEM} reconstruction. Part of the \acrshort{MLEM} algorithm is the modelling of the detectors spatial response, known as the \acrshort{LRF}. The BULMA software included existing \acrshort{LRF} data for the system, however it was found that this data was incorrect for the current system. The uniformity flood was used to produce a new set of \acrshort{LRF} models. 
+
+The uniformity data was used to generate a model the for
+Light Response Function (LRF) of each of the 72 channels
+in the SiPM readouts. These models were used along side the
+uniformity flood to generate the system correction parameters.
+
+%\subsection{Uniformity}
+%\subsection{Linearity} 
+\subsection{System Calibration}
+\subsection{Geometry}
+\subsection{Sensitivity}
 The INSERT project has overseen the development
 of the first clinical simultaneous Single Photon Emission Computed
 Tomography (SPECT) and Magnetic Resonance Imaging
@@ -104,20 +125,7 @@ adapted them for the complete 20 detector system.
 \subsection{Resolution}
 \subsection{Detector Calibration}
 \subsection{Uniformity}
-The uniformity correction requires a flood scan over each
-detector module, without the collimator. The full detector
-system imposed a restriction in the source position, in order
-to acquire across all modules at once, the source was placed
-at the centre of the bore; 20 cm from any given detector.
-This acquisition required no angular variation in the source,
-this condition was met in the transaxial direction. However,
-we cannot assume this in the axial direction as the source is
-not 5 times the length of the detector, as required by NEMA
-standards.
-The uniformity data was used to generate a model the for
-Light Response Function (LRF) of each of the 72 channels
-in the SiPM readouts. These models were used along side the
-uniformity flood to generate the system correction parameters.
+
 
 \subsection{Linearity} 
 \subsection{System Calibration}
