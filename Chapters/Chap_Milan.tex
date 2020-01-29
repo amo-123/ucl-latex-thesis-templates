@@ -27,21 +27,31 @@ The uniformity data is collected by performing a flood scan of a single point so
 
 The linearity distortion in a given detector was measured by acquiring data from a planar phantom (4 MBq of $^{99m}Tc$) mounted a set of parallel line collimators. Two collimator scans are carried out on each head; measuring the distortion in the X and Y direction respectively. The phantom attached of linearity collimator covered the whole detector head and so each unit was scanned individually. 40, 4 minute scans were required to collect the complete set of X and Y linearity data. 
 
-\subsection{Calibration Correction Software}
-The resulting data is processed using the BULMA software. The uniformity and linearity data is used to produce a set of  
-As discussed previously the planar event reconstruction is carried out in a two step method; a centroid reconstruction is used to initialise an \acrshort{MLEM} reconstruction. Part of the \acrshort{MLEM} algorithm is the modelling of the detectors spatial response, the aforementioned \acrshort{LRF}. The BULMA software included existing \acrshort{LRF} data for the system, however it was found that this data was incorrect for the current system. The uniformity flood was used to produce a new set of \acrshort{LRF} models, which were incorporated in the event reconstruction.
+\subsection{Detector Calibration Software}
+The resulting data is processed using the BULMA software. The uniformity and linearity data is used to produce a set of transformation maps which are applied during the planar event reconstruction. As discussed previously the planar event reconstruction is carried out in a two step method; a centroid reconstruction is used to initialise an \acrshort{ML} reconstruction. Part of the \acrshort{ML} algorithm is the modelling of the detectors spatial response, the aforementioned \acrshort{LRF}. The BULMA software included existing \acrshort{LRF} data for the system, however it was found that this data was incorrect for the current system. The uniformity flood was used to produce a new set of \acrshort{LRF} models, which were incorporated in the event reconstruction.
 
-The software uses active contour splines to identify the line data. A geometric transform matrix is calculated by measuring the distortion 
+The \acrshort{LRF}, uniformity, and the X/Y linearity data are input into the BULMA software alongside the raw uncorrected phantom data. The X and Y data are firstly reconstructed to produce two planar images of linear bands. The software uses active contour splines to identify the data bands. The resulting X and Y splines are combined to produce a grid of crossing control points; the linearity map is created. The photopeak of the total phantom data is determined and an initial reconstruction is found using the \acrshort{LRF}. The linearity map crossing points mark out positions to determine the local energy spectra; these produce a local, position-dependent, energy filter. The energy at each pixel position in the phantom reconstruction are calculated and matched to the local energy map. Correcting for the local energy peaks produces a planar reconstruction corrected for energy and linearity. The uniformity data is reconstructed in the same way to create the uniformity map. The phantom reconstruction is multiplied by the inverse of the uniformity map to correct each pixel. The final result is corrected planar image, ready for image reconstruction. 
 
 %\subsection{Uniformity}
 %\subsection{Linearity} 
 
-
-
-\subsection{System Calibration}
- The calibration procedure involves two steps; detector calibration and system calibration. The detector calibration involved standard linearity and uniformity corrections of the projection data. The linearity and uniformity corrections were carried out with simple transformations of the projection data using a flood source and linearity collimators. The system calibration consists of a geometric and sensitivity calibration followed by event re-sampling; this procedure accounts for the MSS system design. 
+\section{System Calibration}
+The image reconstruction algorithm requires information of the systems geometry and sensitivity. The system calibration acquires this information through two experiments. Each experiment is carried out with the collimator fitted. The data from each experiment produces correction which are applied to the planar images during image reconstruction. 
  
-The geometric calibration has been established previously, \cite{8340862}. The sensitivity calibration required data with a planar phantom, filled with 50 MBq of $^{99m}Tc$ solution, and placed close to each of the collimated detectors. The sensitivity profiles were fitted using equation (\ref{sens_model}), where $\phi$ is the sampling angle, $G_{\sigma}(\phi)$ is a Gaussian function and the summation is done over all mini-slits $i$ for each collimator section $j$. Fig. \ref{fig_sensprof} shows examples of sensitivity profiles for two different collimator sections and the corresponding fits.
+The geometric calibration has been established previously, \cite{8340862}. The geometric data is acquired from a series of scans of capillary phantoms. The capillaries have 1 mm diameter and are filled with 10 MBq of $^{99m}Tc$. Two experiments are set up to acquire the axial and trans-axial geometry of the system. 
+
+\textbf{Axial Orientation:} The capillaries were aligned with the axial direction of the scanner. The capillaries are held on a rotating stage and positioned at 4 locations with the \acrshort{FOv}. The positions are separated by 90\degree and lie at radii of 25, 50, 75 and 100 mm. From these positions the capillaries are rotated about the z axes of the scanner. The capillaries are scanned for 2 minutes at 30 positions; rotating by 12\degree until 360\degree is covered. 
+
+\textbf{Trans-axial Orientation:} similarly the capillaries were placed along the trans-axial plane and rotated about the z axes. Five capillaries are at positions, 0, \pm 5, \pm 10 cm from the centre of the bore. Due to time constraints these capillaries were only scanned for 5 positions.
+
+The sensitivity calibration required data with a planar phantom, $10 * 10 * 0.5$ cm, filled with 50 MBq of $^{99m}Tc$. The phantom was place in front of each detector head and scanned individually. The phantom covered the whole collimator \acrshort{FOV}, the resulting flood acquisition gave a measure of uniformity variation due to the collimator geometry. 
+
+\subsection{System Calibration Software}
+The data collected from the system calibration undergoes planar event reconstruction and detector calibration as described above. The resulting data was analysed in MATLAB.
+
+The geometric data was used to measure 3 system parameters of the collimator. The tilt and twist angles, and mechanical shifts were determined by modelling the variation in position and size of the capillary data. The location of each capillaries is measures with a Gaussian model by taking measurements along its length. The variation in position as a function of radial position of the axial capillaries is known as the mechanical shift in the collimator. The variation of position along the length of a trans-axial capillary is known as the twist angle. Finally the variation in position as a function of radial position of the trans-axial capillaries gives us a measure of the tilt angle.
+
+The reconstructed sensitivity profiles gave a measure of count variation across the whole collimation. The sensitivity variation as a function of sampling angle of the aperture was modelled. Each profile was fitted using equation (\ref{sens_model}), where $\phi$ is the sampling angle, $G_{\sigma}(\phi)$ is a Gaussian function and the summation is done over all mini-slits $i$ for each collimator section $j$. 
 
 \begin{equation}
 %\vspace{-0.2cm}
@@ -155,6 +165,7 @@ Initial testing of the system performance revealed the presence of faulty channe
 \subsection{System Calibration}
 \subsection{Geometry}
 \subsection{Sensitivity}
+Fig. \ref{fig_sensprof} shows examples of sensitivity profiles for two different collimator sections and the corresponding fits.
 \subsection{Phantom Acquisitions}
 \subsection{Capillary}
 \subsection{Cylinder}
