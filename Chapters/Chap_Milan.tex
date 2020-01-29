@@ -13,78 +13,59 @@
 In this chapter the use of the \acrshort{INSERT} scanner is outlined. The calibration procedures and experimental methods explored in this chapter are used to evaluated the system performance. The outcome of this investigation results in the implementation of new data processing methods. 
 
 \section{Introduction}
-The following experiments were carried out at San Raffaele Hospital (Milan), in collaboration with Politecnico di Milano (POLIMI). The system was transported and installed in the nuclear medicine department in order to carry out experiments with radioisotopes such as Technetium-99m. The experiments were carried out using the BULMA software provided by Mediso Ltd (Budapest). The software was designed to operate the system and acquired the raw data from experiments. The raw data was processed and calibrated using the BULMA INSERT$_$GUI package along with existing system data. 
+The following experiments were carried out at San Raffaele Hospital (Milan), in collaboration with Politecnico di Milano (POLIMI). The system was transported and installed in the nuclear medicine department in order to carry out experiments with radioisotopes such as Technetium-99m. The experiments were carried out using the BULMA software provided by Mediso Ltd (Budapest). The software was designed to operate the system and acquired the raw data from experiments. The raw data was processed and calibrated using the BULMA INSERT-GUI package along with existing system data. 
 
-This experiments set out to acquire the first phantom images from the \acrshort{INSERT} system, in order to achieve this the system was first evaluated and calibrated. The count-rate and energy resolution were determined and the system corrections and calibrations for these parameters where carried out at Polimi. The calibration procedures required to correct for event and image reconstruction are out outlined here.
+This experiments set out to acquire the first phantom images from the \acrshort{INSERT} system, in order to achieve this the system was first evaluated and calibrated. The count-rate and energy resolution were determined and the system corrections and calibrations for these parameters where carried out at Polimi. The calibration procedures required to correct for event and image reconstruction are outlined here.
 
-The calibration procedure was developed on a single detector head system \cite{DebCal}, and was tested in this investigation for the first time on the complete \acrshort{INSERT} scanner. This investigation aimed to determine the effectiveness of the proposed calibration method, and evaluate the systems performance and imaging capabilities. The calibration involves two stages, the detector calibration and the system calibration. The event reconstruction is corrected through the detector calibration procedure; a standard linearity and uniformity correction is performed. The image reconstruction is carried out using the geometric and sensitivity information obtained by the system calibration.
+The calibration procedure was developed on a single detector head system \cite{DebCal}, and was tested in this investigation for the first time on the complete \acrshort{INSERT} scanner. This investigation aimed to determine the effectiveness of the proposed calibration method, and evaluate the systems performance and imaging capabilities. The calibration involves two stages, the detector calibration and the system calibration. The event reconstruction was corrected through the detector calibration procedure; a standard linearity and uniformity correction was performed. The image reconstruction was carried out using the geometric and sensitivity information obtained by the system calibration.
 
-\subsection{Detector Calibration}
-The detector calibration is carried out by collecting uniformity and linearity data from each detector head. The uniformity data is collected by performing a flood scan of a single point source located in the centre of the scanner\acrshort{FOV}. This scan is carried out with the collimator attached; short scans are required due to the high counts with no collimation. This scanned was carried out on the first day as a quick check of detector coverage and performance. The scans are used to correct for uniformity in the subsequent phantom acquisitions. 
+%\section{Methods}
+\section{Detector Calibration}
+The detector calibration is carried out by collecting uniformity and linearity data from each detector head. The uniformity of a given detector head is determined by the intensity variation across a planar acquisition. The uniformity is subject to spatial variations in the crystal properties such as, stopping power and number of emitted scintillation photons. Linearity is a measure of location dependent spatial distortion. This measured by reproducing a known linear geometry. Both uniformity and linearity are subject to position and time variations and so we must calibrate each detector regularly.
 
-As discussed previously the planar event reconstruction is carried out in a two step method; a centroid reconstruction is used to initialise an \acrshort{MLEM} reconstruction. Part of the \acrshort{MLEM} algorithm is the modelling of the detectors spatial response, known as the \acrshort{LRF}. The BULMA software included existing \acrshort{LRF} data for the system, however it was found that this data was incorrect for the current system. The uniformity flood was used to produce a new set of \acrshort{LRF} models. 
+The uniformity data is collected by performing a flood scan of a single point source (1 MBq of $^{99m}Tc$) located in the centre of the scanner\acrshort{FOV}. The uniformity scan was carried out without the collimator attached; consequently short scans are required due to the high counts. The uniformity scans were collected once and used to correct for uniformity in the subsequent phantom acquisitions. 
 
-The uniformity data was used to generate a model the for
-Light Response Function (LRF) of each of the 72 channels
-in the SiPM readouts. These models were used along side the
-uniformity flood to generate the system correction parameters.
+The linearity distortion in a given detector was measured by acquiring data from a planar phantom (4 MBq of $^{99m}Tc$) mounted a set of parallel line collimators. Two collimator scans are carried out on each head; measuring the distortion in the X and Y direction respectively. The phantom attached of linearity collimator covered the whole detector head and so each unit was scanned individually. 40, 4 minute scans were required to collect the complete set of X and Y linearity data. 
+
+\subsection{Calibration Correction Software}
+The resulting data is processed using the BULMA software. The uniformity and linearity data is used to produce a set of  
+As discussed previously the planar event reconstruction is carried out in a two step method; a centroid reconstruction is used to initialise an \acrshort{MLEM} reconstruction. Part of the \acrshort{MLEM} algorithm is the modelling of the detectors spatial response, the aforementioned \acrshort{LRF}. The BULMA software included existing \acrshort{LRF} data for the system, however it was found that this data was incorrect for the current system. The uniformity flood was used to produce a new set of \acrshort{LRF} models, which were incorporated in the event reconstruction.
+
+The software uses active contour splines to identify the line data. A geometric transform matrix is calculated by measuring the distortion 
 
 %\subsection{Uniformity}
 %\subsection{Linearity} 
+
+
+
+\subsection{System Calibration}
+ The calibration procedure involves two steps; detector calibration and system calibration. The detector calibration involved standard linearity and uniformity corrections of the projection data. The linearity and uniformity corrections were carried out with simple transformations of the projection data using a flood source and linearity collimators. The system calibration consists of a geometric and sensitivity calibration followed by event re-sampling; this procedure accounts for the MSS system design. 
+ 
+The geometric calibration has been established previously, \cite{8340862}. The sensitivity calibration required data with a planar phantom, filled with 50 MBq of $^{99m}Tc$ solution, and placed close to each of the collimated detectors. The sensitivity profiles were fitted using equation (\ref{sens_model}), where $\phi$ is the sampling angle, $G_{\sigma}(\phi)$ is a Gaussian function and the summation is done over all mini-slits $i$ for each collimator section $j$. Fig. \ref{fig_sensprof} shows examples of sensitivity profiles for two different collimator sections and the corresponding fits.
+
+\begin{equation}
+%\vspace{-0.2cm}
+\label{sens_model}
+S_{j}(\phi) = \sum_{i} G_{\sigma}(\phi) \ast A_{i,j} \cos^{p}{\phi} + b_{j}(\phi)
+%\vspace{-0.2cm}
+\end{equation}
+
+The final step in the calibration involves re-sampling the projection data to produce projection reconstructions in object domain. Accounting for the system geometry, the radial position of each event is calculated. The events are then re-ordered with respect to the radial position from the centre of the FOV. The result allows for easier visual analysis of the acquired data; at this stage the data are completely corrected and ready for reconstruction. 
+
+\begin{figure}[!t]
+%\vspace{-0.2cm}
+\centering
+\includegraphics[width=2.9in]{figures/sns_prof.png}
+
+\caption{Sensitivity profiles for two collimator sections and fitted analytical functions.}
+\label{fig_sensprof}
+%\vspace{-0.2cm}
+\end{figure}
+
 \subsection{System Calibration}
 \subsection{Geometry}
 \subsection{Sensitivity}
-The INSERT project has overseen the development
-of the first clinical simultaneous Single Photon Emission Computed
-Tomography (SPECT) and Magnetic Resonance Imaging
-(MRI) system. In this work we have for the first time implemented
-a novel calibration procedure and acquired tomographic images
-on the complete clinical system. The calibration procedure was
-carried out here on partial ring system, where it has previously
-been developed on a single detector. The complete calibration
-allowed us to characterise the system as well as parameterise
-the image reconstruction algorithm. The novel system design
-requires correction parameters by characterising the uniformity,
-linearity, and geometry of the system. We were able to carry
-out the tomographic imaging of several phantoms including,
-cylindrical, simplified Jaszczak, and Hoffman phantoms. During
-the reconstruction and processing of the imaging data we were
-able to overcome hardware and software issue which were
-identified in the characterisation stage. Here we were able to
-solve issue involving incomplete data sets and instabilities in
-detectors. The work carried out on the complete system allowed
-us to evaluate the feasibility of clinical use of this system, we
-were able to improve aspects of the calibration procedure and
-overcome seeming inherit limitations in the partial ring system.
 
-INSERT sets out to establish the worlds first clinical simultaneous
-SPECT MRI system. The SPECT insert is
-designed for complete integration with any standard clinical
-MRI system, allowing for the simultaneous acquisition of brain
-images.The stationary insert system is composed of a partial
-ring of 20 CsI:TI scintillation detectors, each with a silicon
-photomultiplier (SiPM) readout. The use of the multimini slitslat
-(MSS), [1], collimator requires the implementation of a
-novel calibration procedure which was established on a single
-detector system, [2]. Though proven successful on a single
-detector, it was essential to verify the methods on a complete
-partial ring system. Carrying out the calibration required
-modifications to the single detector methods; 20 detectors had
-to be calibrated individually and the ring geometry of the
-system introduce space restrictions. Here we have illustrated
-the changes carried out in the transition from a single detector to a complete detector system, outlining the steps required and
-the challenges overcome in our experiments. We also discuss
-the initial results of our extensive tomographic acquisitions
-and the methods involved in the image reconstruction.
-Development of the clinical insert established the MSS collimator,
-[1], this design requires the use of a novel calibration
-and image reconstruction. The calibration procedure generates
-a set of correction parameters from the system, which determine
-the systems uniformity, linearity, and geometry. In this
-work we have outlined the acquisition and application of these
-parameters. These acquisition corrections were applied with a
-software provided by Mediso; producing a set of projection
-images to be constructed.
 As can be expected from the initial testing of a prototype
 the system had issues with both hardware and software during
 this research. We have been able to identify these issue,
@@ -162,11 +143,13 @@ image resolutions.
 \subsection{Hoffman}
 
 \section{Results}
-\subsection{Initial System Testing}
-\subsection{Count-rate} 
-\subsection{Energy}
-\subsection{Resolution}
+%\subsection{Initial System Testing}
+%\subsection{Count-rate} 
+%\subsection{Energy}
+%\subsection{Resolution}
 \subsection{Detector Calibration}
+Initial testing of the system performance revealed the presence of faulty channels in some detector head. A faulty channel would produce a high number of false counts which resulted in a hot spot; drowning out the healthy channels and giving counts to neighbouring pixels. The solution to this was to turn off the offending channels and leave a single dead pixel in its place. The dead channel left a large gap in the projection data; event reconstruction was carried out but detector calibration was not possible. The \acrshort{LRF} provided a solution to this problem as it gave the spatial response for each individual channel. The killed channels were therefore modelled as a such in the \acrshort{LRF} data. This allowed the \acrshort{MLEM} reconstruction to model the missing data and interpolate events from neighbouring channels. The modified reconstruction significantly reduced the data gap left by the faulty channel. 
+
 \subsection{Uniformity}
 \subsection{Linearity} 
 \subsection{System Calibration}
