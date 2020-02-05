@@ -1,5 +1,5 @@
 \chapter{INSERT}
-\label{chapterlabel2}
+\label{LitRev}
 % general system design
 % Detection module 
 % collimator
@@ -70,3 +70,5 @@ In order to carry out thorough testing the SPECT, insert was constructed in a Mo
 
 \subsection{Event Reconstruction}
 The system carries out event reconstruction with a maximum likelihood (ML) algorithm. The ML reconstruction requires modelling of each SiPM Light Response Function (LRF). LRF models were constructed for each detector channel, derived from a uniformity flood acquisition, \cite{6359814}. LRF modelling has previously been used to evaluate the detectors, \cite{8069405}; here we establish use of the models as a correction for hardware failure. The LRF is able to account for missing event data in a given channel by modelling the known spatial response and interpolating counts from surrounding channels. This methods is limited to small regions as it cannot correct large areas of missing data. 
+
+

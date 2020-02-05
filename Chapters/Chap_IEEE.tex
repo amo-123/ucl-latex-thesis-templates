@@ -1,68 +1,38 @@
 \chapter{IEEE}
-\label{chapterlabel3}
-
-% Phantom acquisition (rotation method) 
+\label{IEEE}
+% New Linearity and PERA software 
 % Image comparison (Single, Dual, NEw software) 
 
 \section{Introduction}
+As discussed in chapter \ref{Milan} the experiments showed the need for regular system calibration. The existing protocols proved too long for practical use; the presence of truncated data and need for manual intervention is unreliable and not reproducible. In particular the linearity calibration imposed a large time constraint. We set out to implement a new calibration procedure to reduce time of calibration and allow regular linearity measurements. The new calibration procedure would not make use of the linearity collimators. The BULMA linearity correction software was designed for the linearity collimator technique only; a new software would be developed for the use with the new calibration procedure. 
+\section{Methods}
+To carry out the linearity correction of the software we must first take a measure of linearity distortion within each detector and the determine a correction transformation for the distortion. The Mediso software measures the distortion of the linearity data and compares it to the known geometry of the collimator. We base our new method on the Mediso technique as it allows a comparative measure for the success of the new linearity correction. Three methods of measuring the linearity distortion was developed and tested. Method methods built a series of spline models which would fit along the linearity line data and determine the distortion in each given line. These spline models where then optimised against the linearity data. The first method took the given spline model and simulated a linearity data set. The simulated data and real data were measured against each other and and by optimising a similarity measure between this data, the spline model was optimised to fit the real data.
+The second method optimised the splines by maximising the coverage of the individual splines along the linearity data. Each line of data was treated separately and by integrating the splines along them, a measure of similarity was determined. 
+Finally a non optimisation method was explore. The previous methods were initialised by finding a few control points along each line of data. The third method considered every point on the spline as a control point and measured a position of each of the linearity data lines. 
+Each method required smoothing and noise removal to aid with the optimisation steps. 
+\section{Results}
 
-INSERT is the world's first clinical simultaneous SPECT/MRI system. The system is a brain SPECT insert, designed for complete integration with any clinical MRI system. The stationary insert system is composed of a partial ring of 20 detector units, each with a 10x5 $cm^2$ CsI(TI) crystal, silicon photomultiplier (SiPM) and ASIC readout. A novel MR compatible collimator; the multi-mini-slit-slat (MSS), \cite{7430894}, was designed specifically for the compatibility and clinical needs of the system. The use of the MSS collimator requires the implementation of a specific calibration procedure, which was established on a single detector system, \cite{8340862}, and initially tested on a semi-operational system, \cite{inproceedings}.
+\section{Discussion}
+The third method required the least pre-processing and so gave a more accurate measure of the linearity distortion.
+\section{Conclusion}
 
-The partial ring MSS collimator imposes some limitations on the system's sampling. In this work we utilise a dual reconstruction technique in order to improve angular sampling of the system. Due to hardware issues we had cases of detection failure in which data were missing across a few affected units. The calibration and event reconstruction techniques were found to provide a means of correcting missing event data. The limitations of the prototype were overcome by the calibration procedure, producing successful reconstructed phantom images, which were further improved by the dual acquisition protocol.   
 
-The INSERT project has overseen the development
-of the first clinical simultaneous Single Photon Emission Computed
-Tomography (SPECT) and Magnetic Resonance Imaging
-(MRI) system. In this work we have for the first time implemented
-a novel calibration procedure and acquired tomographic images
-on the complete clinical system. The calibration procedure was
-carried out here on partial ring system, where it has previously
-been developed on a single detector. The complete calibration
-allowed us to characterise the system as well as parameterise
-the image reconstruction algorithm. The novel system design
-requires correction parameters by characterising the uniformity,
-linearity, and geometry of the system. We were able to carry
-out the tomographic imaging of several phantoms including,
-cylindrical, simplified Jaszczak, and Hoffman phantoms. During
-the reconstruction and processing of the imaging data we were
-able to overcome hardware and software issue which were
-identified in the characterisation stage. Here we were able to
-solve issue involving incomplete data sets and instabilities in
-detectors. The work carried out on the complete system allowed
-us to evaluate the feasibility of clinical use of this system, we
-were able to improve aspects of the calibration procedure and
-overcome seeming inherit limitations in the partial ring system.
 
-INSERT sets out to establish the worlds first clinical simultaneous
-SPECT MRI system. The SPECT insert is
-designed for complete integration with any standard clinical
-MRI system, allowing for the simultaneous acquisition of brain
-images.The stationary insert system is composed of a partial
-ring of 20 CsI:TI scintillation detectors, each with a silicon
-photomultiplier (SiPM) readout. The use of the multimini slitslat
-(MSS), [1], collimator requires the implementation of a
-novel calibration procedure which was established on a single
-detector system, [2]. Though proven successful on a single
-detector, it was essential to verify the methods on a complete
-partial ring system. Carrying out the calibration required
-modifications to the single detector methods; 20 detectors had
-to be calibrated individually and the ring geometry of the
-system introduce space restrictions. Here we have illustrated
-the changes carried out in the transition from a single detector to a complete detector system, outlining the steps required and
-the challenges overcome in our experiments. We also discuss
-the initial results of our extensive tomographic acquisitions
-and the methods involved in the image reconstruction.
-Development of the clinical insert established the MSS collimator,
-[1], this design requires the use of a novel calibration
-and image reconstruction. The calibration procedure generates
-a set of correction parameters from the system, which determine
-the systems uniformity, linearity, and geometry. In this
-work we have outlined the acquisition and application of these
-parameters. These acquisition corrections were applied with a
-software provided by Mediso; producing a set of projection
-images to be constructed.
+\section{Introduction}
+Following the initial results of the linearity correction software; the event reconstruction protocol of the system was revisited to  establish how we can improve the quality of the projection data. The event reconstruction makes use of both centroid and ML reconstruction algorithms. 
+\section{Methods}
+The event reconstruction is initialised with the centroid reconstruction, making use of a minimum count baseline to remove scatter events. This initial reconstruction is used by the ML algorithm to establish a final projection image. The ML models the detectors spatial response with the LRF of each SiPM individually. The hardware issues lead to a failure in the LRF as faulty channels were not modelled correctly. A solution to this would be to create a new LRF for the faulty detector, however the LRF take a long time to produce; we proposed a normalised LRF approach for more adaptable modelling. The list-mode data was normalised with respect to the mean counts in order to reduce the effect of anomalous events. The LRF and centroid projections were produced using the normalised LM. This ensured they matched and would account for hot spots or faulty channels in the data.
+\section{Results}
+
+\section{Discussion}
+
+\section{Conclusion}
+
+
  
 \subsection{Image Reconstruction}
+The final step in the calibration involves re-sampling the projection data to produce projection reconstructions in object domain. Accounting for the system geometry, the radial position of each event is calculated. The events are then re-ordered with respect to the radial position from the centre of the FOV. The result allows for easier visual analysis of the acquired data; at this stage the data are completely corrected and ready for reconstruction. 
+
 
 The calibration corrected data are reconstructed using Maximum Likelihood Estimation Maximisation (ML-EM), \cite{4307558} in combination with angular blurring, \cite{bousse2013angular}; figure \ref{fig_ImageRes} shows capillary phantom reconstructed in this way. The image shows promising results across the field-of-view (FOV) however the reconstruction is limited by the angular sampling of the MSS collimator and the partial ring system. We were able to overcome this by introducing a dual reconstruction of two sets of acquisition data. As an additional option, the phantom data may be acquired at two angular positions, separated by a rotation about the z-axis. The second acquisition will provide projections from the missing region of the detector ring; an offset of half a detector also provides data in between each unit and provides improved angular sampling. The increase sampling overcomes detection failure over a large area; if a large region is missing, the rotated position is able to capture events from another detector unit. 
 
