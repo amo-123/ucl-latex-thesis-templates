@@ -8,19 +8,55 @@
 % Calibration procedure
 % Software Pera and Bulma % software (PERA pg 137 Deb. 65 Il.)
 
-As stated in the introduction the INSERT project aims to incorporate a SPECT module insert into existing MRI devices. The device will fit into the MRI bore and carry out a simultaneous SPECT and MRI scan of the brain. The challenges faced in this design arise from the need a compact, MR compatible SPECT system.
-\section{Compatibility and Design}
- The use of SPECT in an MR environment requires components which are able to function in the presence of a strong magnetic field. In order for simultaneous acquisition the SPECT design must be compact and fit within the MRI bore. To fit these requirements, the INSERT is designed with MR compatible photon detection \cite{7287793} and a novel collimator design \cite{7181734}. As stated previously the PMT is incompatible with the requirements for the INSERT system. 
-\paragraph{}
-It is essential that the SPECT device does not include any materials which are MR incompatible. Magnetic materials must not be present in the SPECT unit. The varying magnetic fields may also induce eddy currents in some metals. These currents can reduce the performance by introducing their own magnetic fields which are detected by the MR coils. 
-\paragraph{}
-The SPECT system must acquire the image data through stationary means. The SPECT unit must not move as motion will cause artefacts in the MRI acquisition. The stationary system will have to collect the information from all angles with a ring of detectors. This furthers the need for a compact system. To ensure there is room for the patient the bed, the scanner is designed with a partial ring structure.
-\section{Photon Detection}
-The INSERT must make use of methods of photon detection without the PMT. This can be achieved through MR compatible solid state devices. The device chosen in the INSERT design is the Silicon Photomultiplier (SiPM), this is a compact solid state device which is able to function within a strong magnetic field, \cite{SCHAART201631}, \cite{0031-9155-56-23-014}. SiPM are formed of thousands of Avalanche Photodiode (APD), functioning in Geiger mode (G-APD). An APD is able to produce a large output current (avalanche current) from even a single charge carrier input, similar to the PMT, however these solid state devices pass carriers through a bulk material such as silicon as opposed to the vacuum used in PMTs, \cite{RENKER200648}. G-APDs consist of a reverse biased PN junction. The PN junction is a boundary composed of a pair of semiconductor materials, known as the P and N type materials. The materials are doped to produce a positive (P type) or negative (N type) region, these define the valence and conductive bands in the semiconductor. When a reverse bias is applied a high resistance junction is created as the band gap increases. The avalanche current is caused by the break down of the high resistance junction as electron hole pairs are produced. A single electron with sufficiently high kinetic energy can ionise the silicon and the resulting pair will travel to opposing bands liberating further electrons and hole, leading to the avalanche. However this design has an intrinsic limitation in which the output is unable to distinguish input magnitude.
-\paragraph{}
-A SiPM is composed in a microcells, a series of SiPM arranged together each generating a combined G-APD avalanche signal, \cite{DINU2015367}. This design overcomes the G-APD limitation as the microcells produce individual localised signals, which give an output proportional to the activation of the microcells. The SiPM are arranged in a minimally spaced array to cover the detector surface with maximum light detection. The SiPM requires a cooling unit to maintain a functioning temperature. The SiPM is optimised to detect the wavelength from the chosen scintillation crystal. A Thallium activated Cesium Iodide (CsI(Tl)) crystal is used for the scintillation of photons. This inorganic crystal was chosen for its high output signal despite its slow performance. The crystal is 8 mm thick and the total thickness of the SiPM with cooling unit and required electronics is 21.69 mm. This thickness is much smaller than the PMT design, and fits in the MRI bore. The crystal and SiPM define an intrinsic resolution of 1 mm for the detector system.
-\section{Collimator}
-The novel collimator unit is essential to the design of the INSERT project. The collimator is designed to account for the size and stationary requirements of the system, constructing a partial ring which aims to maximise sensitivity and reduce dead space. The collimator design chosen is a Multi-Slits Slit Slat (MSS) collimator. This collimator provides a compact design to satisfy the space requirements. The coverage of the collimator must be maximised to account for the limitations in angle coverage from a stationary system. To acquire the desired functional information the sensitivity is also maximised by this coverage design. Figure \ref{fig:MSSColl} demonstrates the design of the MSS collimator. The slits are separated by a sections of two and three slits, with slats across each slit.
+\section{Introduction and Motivations}
+As discussed in the last chapter the development of a \acrshort{SPECT/MRI} will provide many advantages due to the diverse applications that the individual \acrshort{SPECT} and \acrshort{MRI} systems  \cite{doi:10.1259/bjr.20160690}. Combined \acrshort{SPECT/MRI} data can be used to determine functional information from brain scans of known tumours in order to track development and plan treatments. The introduction of \acrshort{MR} into an nuclear imaging system is that of an improved soft tissue imaging and reduce dose, compared to that of \acrshort{CT}. The range of \acrshort{MR} protocols such as functional \acrshort{MR} also promises many advantages over \acrshort{SPECT/CT}. However \acrshort{SPECT} and \acrshort{PET} are not so easily integrated into the \acrshort{MR} environment. 
+
+The strong magnetic fields produced by the \acrshort{MRI} introduce electromagnetic interference between the devices. Technology such as \acrshort{PMT} cannot function within a strong magnetic field and the presences of external electromagnetic signals will deter the imaging capabilities of the \acrshort{MR}. These challenges have been overcome in \acrshort{PET/MR} with the development of solid state light detectors which are capable of functioning within a magnetic field. Although the use of \acrshort{SPECT} can provide advantages in \acrshort{MR}, \cite{doi:10.1177/153303460600500406}, it introduces further compatibility issues.
+
+\acrshort{SPECT} is typically a dynamic system, in which a moving camera head will acquire data. This is not possible with in \acrshort{MRI}; as well as the physical space required by a moving gantry, the reactive forces generated by the motor can damage the gradient coils within the \acrshort{MR}. A stationary system must be adapted and so sampling angles are sacrificed. The second consideration is the presence of the collimator. These are typically made of a lead alloy which is ferrous. In order to function within the \acrshort{MR} the collimator must be redesigned to include non-ferrous elements. 
+
+These challenges were tackled in the development of the \acrshort{INSERT} scanner. The \acrshort{INSERT} project aimed to develop the worlds first clinical \acrshort{SPECT} insert capable of simultaneous use within a \acrshort{MRI} system. The project set out to achieve this goal in order to provide a tool for the stratification of glioma tumour therapy. In establishing this novel technology the project can lay the ground work for completely integrated \acrshort{SPECT/MRI} systems.
+
+\section{INSERT Project}
+
+In order to establish an \acrshort{MR} compatible \acrshort{SPECT}, \acrshort{INSERT} implemented a set of unique design features. The system is composed of a partial ring of 20 stationary detector units. This minimises the dimensions and allows it to fit within the bore of a clinical \acrshort{MRI}. Each detector head is composed of a CsI(TI) crystal, silicon photomultiplier (SiPM) and ASIC readout. The \acrshort{MR} compatible technology was proven in \acrshort{PET/MR} systems and had been specially designed for the \acrshort{INSERT}. A novel \acrshort{MR} compatible collimator composed of tungsten was developed; the multi-mini-slit-slat (MSS), \cite{7430894}. Together these components produced a compact stand alone \acrshort{SPECT} scanner. In order to use this within an \acrshort{MR} an \acrlong{RF} coil is required. This is a standard component in \acrshort{MRI} systems, however, in order to work within the \acrshort{INSERT}, it is essential that the coil fits within the bore of the \acrshort{INSERT} and can transmit and receive the \acrshort{RF} pulses. The \acrshort{RF} pulses must be transmitted from within the \acrshort{INSERT} bore so the pulse signal does not travel through the \acrshort{INSERT}, this could damage the detector electronics and collapse the \acrshort{MR} signal.
+
+This thesis' primary focus is the evaluation of the stand alone \acrshort{SPECT} system. Upon completion the \acrshort{INSERT} has undergone extensive electrical and stability testing, \cite{Marco}, however the imaging capability the novel system has yet to be established. The system components are outlined here in order to establish the current state of the \acrshort{INSERT}.
+
+\subsection{Detector Units}
+The first components we consider are the 20 gamma detector heads.  The devices chosen in the INSERT design are a \acrlong{CsITl} crystal coupled to a \acrlong{SiPM} (\acrshort{SiPM}). The \acrshort{CsITl} crystal covered 100 mm x 50 mm with a 8 mm thickness. The crystal thickness imposes a compromise between absorption and spatial resolution. The crystal dimensions were chosen to maintain a compact system; \acrshort{CsITl} provided a greater spatial resolution and efficiency, was is essential in for lower energy gamma rays. \acrshort{SiPM} was chosen as it is a compact solid state device able to function within a strong magnetic field, \cite{SCHAART201631}, \cite{0031-9155-56-23-014}. A \acrshort{SiPM} is composed in a microcells, a series of \acrshort{SiPM} arranged together each generating a combined \acrshort{G-APD} avalanche signal, \cite{DINU2015367}. The \acrshort{SiPM} are arranged in a minimally spaced array to cover the detector surface with maximum light detection. \acrshort{SiPM} are susceptible to \acrlong{DCR}; this is a false signal caused by the production of electron positron pairs. \acrshort{DCR} is prominant during operation with lower energy nuclides in \acrshort{SPECT}. The \acrshort{DCR} is related to the thermal response of the detector as so the \acrshort{SiPM} requires a cooling unit to maintain a functioning temperature. 
+
+The detector makes use of 72 channels (\acrshort{SiPM} macrocells) for ease of processing. The data collected from the detector heads are processed with the methods described in chapter \ref{Introduction}. The \acrshort{ML} algorithm is implemented in two software used throughout this body of work; \acrshort{PERA} (\acrlong{PERA}), \cite{michele}, and INSERT GUI software provided by Mediso Ltd. As discussed the \acrshort{ML} requires a model to carry out the optimisation, the algorithm used in \acrshort{PERA} makes use of an initial centroid reconstruction and a series of \acrshort{SiPM} models known as \acrlong{LRF}s. The \acrshort{LRF} is the average response of each individual channel as a function of the event position; this maps each event position within the crystal to each given photodetector. These models are calculated by building an iterative model from experimental data, \cite{solovov}. The \acrshort{LRF} are created once from a flood acquisition and can be used in all subsequent reconstructions. The reconstruction carried out by the \acrshort{INSERT} system follows several step. An {Energy Window} is defined about the photopeak and events which do not fall within the window are removed. Coordinates (X,Y) in projection space are initialised with a \textbf{Modified Centroid}. The coordinates are optimised in the \acrshort{ML} by using the \acrshort{LRF} models: 
+
+\begin{equation} \label{eqn:PERA}
+                (\hat{X},\hat{Y}) = max\{ \sum^{N}_{i=1} [ S_{i}log(LRF(X,Y) \hat{N}) - LRF(X,Y) \hat{N} ] \}
+\end{equation}
+
+where $\hat{N}$ is a normalisation faction:
+
+\begin{equation} \label{eqn:Norm}
+                \hat{N} = \frac{\sum^{N}_{i=1} S_{j}}{\sum^{N}_{i=1} LRF(X,Y)}
+\end{equation}
+
+The \acrshort{LRF} models are calculated for each photodetector and are represented by a 2D Gaussian: 
+
+\begin{equation} \label{eqn:LRF}
+    LRF(X,Y) = Ae^{-b(x-x_{0})^{2} + c(y-y_{0})^2} + \phi
+\end{equation}
+
+\begin{description}
+    \item{A}: Amplitude
+    \vspace{-0.5cm}
+    \item{b, c}: Variance
+    \vspace{-0.5cm}
+    \item{$x_{0}, y_{0}$}: Centre coordinate of Gaussian
+   \vspace{-0.5cm}
+    \item{$\phi$}: Offset given by modified centroid baseline
+\end{description}
+
+\subsection{MSS Collimator}
+The novel collimator unit was especially designed for the INSERT project. The collimator design is a \acrlong{MSS} (\acrshort{MSS}) collimator. This novel design is compose of a series of parallel hole slates running the length of the collimator. Mulitple mini slits are embedded withn these slats. This provides a compact design to satisfy the space requirements of the \acrshort{MR} bore. The coverage of the collimator must be maximised to account for the limitations in angle coverage from a stationary system. To acquire the desired functional information, the sensitivity is also maximised by this coverage design. Figure \ref{fig:MSSColl} demonstrates the design of the MSS collimator.
+
 
 \begin{figure}[htp]
     \centering
@@ -28,47 +64,28 @@ The novel collimator unit is essential to the design of the INSERT project. The 
     \caption{The MSS collimator deisign schematic show blue slits with red slats. Figure from \cite{8069508}} \label{fig:MSSColl}
 \end{figure}
 
-\paragraph{}
-The collimator consists of a series of slits which run along the length of the collimator in alternating pairs and triplets, these are labelled the `2 slits' and the `$1 + 2\frac{1}{2}$ slits'. The furthest edge `$2\frac{1}{2}$ slits'  combine with those of the neighbouring collimator to cover a wider angular range across the ring. The field of view (FOV) covered by the slits in the trans-axial plane is 20 cm. The large FOV is a result of the radially position slits and fanned out individual slits. The small system design leads to minification of the object in the the trans-axial plane, within the FOV. The resolution and sensitivity of the slit is given by the pin hole equations (\ref{eqn:pinholeRes},\ref{eqn:pinholeSen}).
-\paragraph{}
-The collimator has a series of parallel slats running perpendicularly all along the length of the slits. These slats define the resolution in the axial direction. The parallel hole equations (\ref{eqn:ParholeRes},\ref{eqn:ParholeSen}) define the resolution and sensitivity of the parallel slats. The axial FOV is 9 cm and induces no minification in this direction. Together the slits and slats define a cylindrical field of view. The slits carry out pin hole collimation and have a fan beam acceptance angle, where the slats have a parallel beam range. The design is expected to give a resolution of 8 - 10 mm within the FOV. The resolutions of the slit and slats can be considered separately  as they span different planes, however the overall sensitivity of the system must be some combination of the slit and slat apertures. Metzler \cite{Metzler2010SlitSlatAM} demonstrates the sensitivity equation derived from this kind of equation.
-\paragraph{} 
-To ensure MR compatibility the collimator must be constructed with a material which does not induce eddy currents, \cite{7286864}. The MSS collimator is constructed with tungsten in order to reduce the effects of eddy currents. Tungsten has a high stopping power however it is brittle, requiring a certain thickness for practical purposes. The collimator septa spacing defines the spatial resolution, this resolution is great limitation in SPECT imaging. The collimator design must balance the trade off between resolution and sensitivity whilst also considering the functionality and shielding, more on this in the next chapter. The shielding of the camera had to consider the practical aspect of device weight. In order to reduce the weight of the collimator the internal material was cut down. This reduced the shielding capabilities but was done so as to keep within the minimum accepted penetration. 
+To maintain \acrshort{MR} compatibility, tungsten is used in place of lead in this collimator. The collimator is composed of 6000 individual tungsten pieces, each electrically insulated. This design was chosen to prevent the induction of eddy currents within the metal, \cite{7286864}. A continuous loop of metal can induce Eddy currents which in turn will induce an opposing force against the magnetic field. The series of slits run along the length of the collimator in alternating pairs and triplets, these are labelled the `2 slits' and the `$1 + 2\frac{1}{2}$ slits'. The furthest edge `$2\frac{1}{2}$ slits'  combine with those of the neighbouring collimator to cover a wider angular range across the ring. 
+
+The \acrshort{FOV} covered by the slits in the trans-axial plane is 20 cm. The large \acrshort{FOV} is a result of the radially position slits and fanned out individual slits. The small system design leads to minification of the object in the the trans-axial plane, within the \acrshort{FOV}.The series of parallel slats running perpendicularly along the length of the slits define the resolution in the axial direction. The axial \acrshort{FOV} is 9 cm and induces no minification in this direction. Together the slits and slats define a cylindrical \acrlong{FOV}. The design is expected to give a resolution of 8 - 10 mm within the \acrshort{FOV}. 
+
+ The use of the MSS collimator requires the implementation of a specific calibration procedure, which was established on a single detector system, \cite{8340862}, and initially tested on a semi-operational system, \cite{inproceedings}. The experiments within this thesis involve the use and assessment of this calibration technique, later chapters will discuss the effectiveness of this procedure.
+
+\section{Current Work}
+
+The \acrshort{INSERT} design has been established in a pre-clinical and clinical system. The pre-clinical system has been tested as a proof of concept and has been successfully implemented within a clinical \acrshort{MRI} scanner, \cite{insertpreclin}. The clinical system has been undergone electrical testing, \cite{marco}, but has yet been implemented in an \acrshort{MRI} or evaluated for imaging capabilities. The work outlined in this thesis demonstrated the imaging potential on the stand alone \acrshort{SPECT} system and introduces a number of protocols and techniques which set out to ready the system for a complete integration with a clinical \acrshort{MRI}. The end goal of this research is to establish the first simultaneous acquisitions of \acrshort{SPECT/MRI} and carry out the first in man studies of this novel imaging technology. 
 
 
-\begin{equation} \label{eqn:pinholeRes}
-        R_{pinhole} = \frac{\omega(h + f)}{f}
-\end{equation}
 
 
-\begin{equation} \label{eqn:pinholeSen}
-        g_{pinhole} = \frac{\omega \cos^{3}(\theta)}{16h^{2}}
-\end{equation}
-
-\begin{equation} \label{eqn:ParholeRes}
-        R_{\parallel} = \frac{d(l + z)}{l}
-\end{equation}
 
 
-\begin{equation} \label{eqn:ParholeSen}
-        g_{\parallel} = \frac{d^{4}}{12l^{2}(d+t)^{2}}
-\end{equation}
 
 
-\section{Objectives}
-The INSERT project promises to lay the ground work for a full body SPECT/MRI system. Such a system holds many advantages over PET/MRI, as SPECT is the more widely used and can image at a larger range of radioisotopes \cite{doi:10.1177/153303460600500406}. However to further the development of INSERT, thorough testing must be carried out to ensure it is ready for clinical use. The focus of this thesis is to evaluate the potential performance of the INSERT design for different radionuclide, with a focus on the impact of septal penetration and depth of interaction (DOI). The INSERT system has been constructed in a simulated environment using Monte Carlo software \cite{1236960}. The system was tested by running experiments in the simulation. The simulated experiment allows the source and scanner properties to be defined. The novel collimator has been simulated and the experiments focus on testing its robustness over a range of energies. Recording the interactions within the scanner will determine how effectively the collimator is able to direct photons without degrading image quality.
-\paragraph{} 
-The quality of the images can be reduced if the system is susceptible to septal penetration. This is the penetration of photons through the collimator's septa, causing an degradation in the collimator resolution \cite{0031-9155-18-6-005}, \cite{0031-9155-50-21-004}. Septal penetration was measured by carrying out experiments with various phantom types and measuring the effects of high energy photons on the resulting data in order to model the extent of penetration in the collimator. The DOI determines how far the photons travels through the scintillation crystal before it interacts \cite{0031-9155-55-2-N04}. The DOI is required when reconstructing the images acquired from the scan. Accurately predicting the DOI improves the performance of the image reconstruction algorithm. The interaction data recorded from the experiments allows the penetration and DOI to be estimated. Moreover the reconstructed images from the experiment allows the impact of these phenomena to be realised in the final images.
-
-\section{Motivation}
-The development of a SPECT/MRI will provide many advantages due to the diverse applications that SPECT imaging provides. The use of PET/MRI is limited to a single radionuclide energy. SPECT is widely used as a range of radionuclide energies can be used for dual-radionuclide imaging. The use of simultaneous SPECT/MRI aims to improve treatment for brain tumours and radiotherapy planning \cite{doi:10.1259/bjr.20160690}. The combined modalities reduces the number of scans a patient will have and so provides a more comfortable treatment. The INSERT aims to determine functional information from scans of known tumours in order to track development and plan treatments. Due to the novel design of the SPECT insert, it is essential that the component properties are analysed and the system is tested and classified. It is important to test the fundamental principles governing the system and determine how the device will respond in use.
-\paragraph{}
-In order to carry out thorough testing the SPECT, insert was constructed in a Monte Carlo simulation. This simulated environment allowed for complete control of the system and the experimental design. The testing carried out can record all interaction with the scanner, providing information that cannot be achieved easily through the physical scanner. The simulations allows for safer and cheaper testing of the scanner design. The experiments are diverse and easily changed, the scanner design can also be changed between experiments. The flexibility of the simulated experiments provides many advantages over testing the physical system. The results from the simulations can help define a quantified model used to aid future testing and system design improvements. Accounting for septal penetration and DOI in the physical scanner requires the development of a model for these phenomena that will predict its impact, the Monte Carlo experiment can be used to test these models. 
 
 
-\section{Methods}
 
-\subsection{Event Reconstruction}
-The system carries out event reconstruction with a maximum likelihood (ML) algorithm. The ML reconstruction requires modelling of each SiPM Light Response Function (LRF). LRF models were constructed for each detector channel, derived from a uniformity flood acquisition, \cite{6359814}. LRF modelling has previously been used to evaluate the detectors, \cite{8069405}; here we establish use of the models as a correction for hardware failure. The LRF is able to account for missing event data in a given channel by modelling the known spatial response and interpolating counts from surrounding channels. This methods is limited to small regions as it cannot correct large areas of missing data. 
+
+
+
 
 

@@ -7,95 +7,75 @@
 %Image Recon 
 % Calibration Techniques Deb Pg. 49 
 
-This thesis carries out the evaluation of a \acrshort{SPECT} imaging system. This chapter outlines the basics of \acrshort{SPECT} imaging systems and introduces a novel combined imaging system; the \acrshort{INSERT} scanner. 
-\section{SPECT}
-The \acrlong{SPECT} system was introduced by \cite{Anger} as a method of retrieving a signal from the detection of gamma photons. \acrshort{SPECT} is used widely as a medical imaging technology to investigate the physiological response of an injected radio-pharmaceutical. A pharmaceutical is chosen by its ability to target a given biological process or organ, this drug is labelled with a gamma emitter. The localised emittion is detected by the \acrshort{SPECT} camera and the resulting signal is reconstructed into a 3D tomographic image. The main components of the \acrshort{SPECT} developed by \cite{Anger and Rosenthal} are a collimator, scintillation crystals and \acrlong{PMT}. The gamma emitted from the patient will travel toward the camera head; they interact with the scintillation crystal producing a light pulse, the \acrshort{PMT} with amplify this pulse and convert it to an electrical signal for processing. The signals are processed using Anger logic, \cite{angerLogic}, however without a geometric context it is impossible to localise the origin of the gamma ray; the collimator acts as a camera aperture by allowing only gamma rays from a chosen direction to enter the crystal.
+This thesis outlines the evaluation of a \acrshort{SPECT} imaging system, designed for the simultaneous use within a clinical \acrshort{MRI} system. This chapter outlines the basics of \acrshort{SPECT} imaging systems, discusses the use of multi-modality imaging and introduces the novel combined imaging system; the \acrshort{INSERT} scanner. 
 
-Photon detection within a \acrshort{SPECT} is governed by many factors. The collimator design is the largest contribution to sensitivity, resolution and \acrlong{FOV} of the system. The choice of collimator must consider a balance between number of photons detected and the quality of localisation. A high resolution will improve localisation but is achieved by reducing the aperture size; reducing the sensitivity and requiring a longer scanning time. The collimator is also chosen with consideration of the desired image; collimator designs such as the pinhole are more suited to small organ imaging. The geometry of the collimator determines how the acquired signal is processed into a final image. The chosen collimator geometry defines the photon path however there are uncertainties to consider such as photons penetrating through the collimator septa. 
+\section{SPECT}
+The \acrlong{SPECT} system was introduced by \cite{Anger} as a method of retrieving a signal from the detection of gamma photons. \acrshort{SPECT} is used widely as a medical imaging technology to investigate the physiological response of an injected radio-pharmaceutical. A pharmaceutical is chosen by its ability to target a given biological process or organ, this drug is labelled with a gamma emitter. The localised emission is detected by the \acrshort{SPECT} camera and the resulting signal is reconstructed into a 3D tomographic image. The main components of the \acrshort{SPECT} developed by \cite{Anger and Rosenthal} are the collimator, scintillation crystals and \acrlong{PMT}. The gamma rays emitted from the patient will travel toward the camera head; they interact with the scintillation crystal producing a light pulse, the \acrshort{PMT} will amplify this pulse and convert it to an electrical signal for processing. The signals are processed using Anger logic, \cite{angerLogic}, however without a geometric context it is impossible to localise the origin of the gamma ray; the collimator acts as a camera aperture by allowing only gamma rays from a chosen direction to enter the crystal.
+
+Photon detection within a \acrshort{SPECT} is governed by many factors. The collimator design is the largest contribution to sensitivity, resolution and \acrlong{FOV} of the system. The choice of collimator must consider a balance between number of photons detected and the quality of localisation. A high resolution will improve localisation but is achieved by reducing the aperture size; reducing the sensitivity and requiring a longer scanning time. The collimator is also chosen with consideration of the desired image; for example collimator designs such as the pinhole are more suited to small organ imaging. The geometry of the collimator determines how the acquired signal is processed into a final image. The chosen collimator geometry defines the photon path however there are uncertainties to consider such as photons penetrating through the collimator septa. 
 
 The localisation of photons is also determined by the design of the scintillation crystals and \acrshort{PMT}. These components determine performance factors of the detector including efficiency, count rate, spatial and energy resolutions, uniformity, and linearity. The size, position and density of the crystal determines the efficiency of photon detection. A greater efficiency improves the count rate as event are not lost in between scintillation interactions due to dead time. The energy resolution is the detectors ability to distinguish the photopeaks within a spectra. The spatial resolution of a detector defines the quality of spatial information for each event, this is governed by the \acrshort{PMT} geometry and the photons \acrlong{DOI} within the crystal. Uniformity and linearity are important factors in image quality as the spatial response may be unstable depending on time or location.
 
 \section{SPECT Imaging} % Reword
-The goal of SPECT imaging is to determine the location of a radioactive tracer within the body, we have discussed how the system is designed to collect this data to produce a series of projections from the forward projection of the tracer activity. The process of imaging can be described by the solution of the equation \ref{eqn:imgRec}. We wish to determine the value of $x$, the tracer activity, from the acquired data, $Y$, and the system matrix, $S$. The equation is subject to some noise term, $\eta$. The projections cover the FOV from a given number of directions and together present a complete view of the object. As expected a system with a high number of acquisition angles gives a more accurate depiction of the object. A sinogram is produced from the projection data moving through all covered angles, we want to extract the tracer activity from these sinograms. The images are produced through the analytical or iterative solution of \ref{eqn:imgRec}, here we will discuss one of each of these image reconstruction solutions, \cite{BasicOfNM}.
+\acrshort{SPECT} imaging systems determine the location of a radioactive tracer within the body from the forward projection of the acquired data. The process of imaging is governed by the solution of the equation \ref{eqn:imgRec}. The value of $x$, the tracer activity, is determined from the acquired data, $Y$, and the system matrix, $S$; subject to a noise term, $\eta$. The solution give a complete image of the object by acquiring projections from several angles. More information from the object is acquired with each addition projection angle. We extract the tracer information from a sinogram; a representation of projection data moving through all covered angles. The reconstructed images are produced through the analytical or iterative solution of \ref{eqn:imgRec}. The projections are created using event reconstruction algorithms. These are based on Anger logic; this thesis focuses on two methods of event reconstruction used to evaluate the projection data acquired from each experiment.
 
 \begin{equation} \label{eqn:imgRec}
         Y = S(X) + \eta 
 \end{equation}
 
-\subsection{Back Projection}
-The simplest analytical reconstruction of an image is a `backprojection' the data from the acquisitions. This algorithm builds up an image matrix from the projections in each acquired angle. The projection data is a collection of counts as observed from one view, by adding those counts along the matrix positions in that view the algorithm builds an image of where the counts originated. This is why the collimation of radiation is so important, the back projection algorithm requires counts that have travelled perpendicular to the detector from the source location. The counts from each direction are summed over and the double counts are removed. As expected the images will improve with more projection angles, however each data set has a level of noise. This technique leads to a blurring in the final image. A standard correction to this is to use a filtered backprojection technique (FBP). The INSERT system however does not solely make use of backprojection techniques to construct images. The stationary constraints on the system gives limited acquisition and few projections to work with, because of this an iterative approach is taken. 
-\subsection{ML - EM}
-The iterative approach also aims to find the solution of tracer activity. This solution is composed of a series of estimated models which improve with each iteration of the algorithm. `ML-EM' is the `Maximum Likelihood - Estimation Maximisation' algorithm; this technique aims to produce a image model which include physical attributes and improve on the model until it matches the acquired data, \cite{4307558}. The algorithm will carry out a series of forwards and back projections in order to improve a estimated model. The algorithm is composed of two main steps; the estimation stage, and the maximisation stage. The first step is to produce an estimation of the image. The initial estimation can be a uniform image or can be retrieved from a simple backprojection of the acquisition data. The estimated model is forward projected to produce a series of projects similar to the measure data. The estimated projections are then compared with the acquired data. A correction term is derived from this comparison; using the maximum likelihood technique the correction is determined and used to improve out estimation. This is the maximisation step, the result is an improved image when back projection is carried on on the estimation. However this improvement is incremental and so the steps most be repeated; improving the model and creating a image closer to the true object. 
+\subsection{Event Reconstruction: Centroid Method}
+The \acrlong{COM} method, also known as the Centroid method, is a simple reconstruction originating in the first Anger cameras. From Anger logic we know the signal from a scintillation event will decrease further from the interaction point. The Centroid algorithm makes use of this by simply considering a weighted mean of the signal of a given event from each photodetector. 
 
+\begin{equation} \label{eqn:Centroid}
+        X_{i} = \frac{\sum^{N}_{j} x_{j} \cdot S_{ij}}{\sum^{N}_{j} S_{ij}} \quad ; \quad  Y_{j} = \frac{\sum^{N}_{j} y_{j} \cdot S_{ij}}{\sum^{N}_{i} S_{ij}}
+\end{equation}
+
+The equation \ref{eqn:Centroid} describes the reconstructed event positions $X\_i$ and $Y\_i$ for each event i. The signal $S\_{ij}$ from a given event is summed over each  photodetector j. This weighted sum gives the likely position of an event as the coordinates is calculated toward the centre of the nearest photodetecto, $x\_j$ and $y\_j$. The centroid method is modified to account for the event compression towards the centre of a given detector; this modified centroid method subtracts a common baseline, B, value from each event. The baseline subtraction removes signal not within the region of interest and is chosen based on the detectors field of view (\ref{eqn:ModCent}). 
+
+\begin{equation} \label{eqn:ModCent}
+        X_{i} = \frac{\sum^{N}_{j} x_{j} \cdot (S_{ij} - B)}{\sum^{N}_{j} S_{ij}} \quad ; \quad  Y_{j} = \frac{\sum^{N}_{j} y_{j} \cdot (S_{ij} - B)}{\sum^{N}_{i} S_{ij}}
+\end{equation}
+
+This method is popular as is provides fast and simple projection data. Although the baseline solves the central compression, the centroid method is subject to several errors. 
+
+Non-uniformity in a given camera will distort the resulting projection. Uniformity and sensitivity are subject to the detector response to relative gain and energy window selection. The difference between photodetectors gain can result in false density distribution across the whole detector. The centroid method is unable to account for this as signal will be heavily weighted by a non-uniform photodetector. 
+
+Linearity of the projection data is subject to spatial distortion within the crystal, the centroid method assumes a constant response throughout the crystal. Although true for the centre of the crystal this assumption results in non-linearity at the detector edges. The result is similar to the central compression from equation \ref{eqn:Centroid}.
+
+These issues can be resolved with correction maps as we will see in the following chapters. However we can improve the event reconstruction through statistical methods and spatial modelling. 
+
+\subsection{Event Reconstruction: Maximum Likelihood}
+A statistical method of event reconstruction is able  to produce higher quality projection data which is less susceptible to spatial distortions. The \acrlong{ML} algorithm achieves this by accounting for the random nature of gamma particle interactions and extracting probability models from acquired data.
+
+The \acrshort{ML} algorithm makes use of optical models and the detectors spatial response to calculate the events coordinates and energy. The algorithm optimises a set of model parameters in order to maximise the probability of observing the acquired data from the given model. If we consider our observed data by vector $\Bar{\nu}$, each value is given by detector response to a scintillation event, i.e. number of detected photons or electrical signal, by each channel. The observed data is a result of a series of random events, $V\_i$ (in SPECT imaging this is the transport of gamma rays). The events can be represented by a known probability model, $M(\theta)$, where $\theta$ is the set of optimising parameters. Thus the probability of observing our acquired data given $\theta$ is the joint probability of each independent event $V\_i$ for N total events. 
+
+\begin{equation} \label{eqn:MLProb}
+                P(\Bar{\nu}|\theta) = \prod^{N}_{i=i}P(V_i)
+\end{equation}
+
+The likelihood of the observed sample, $L(\theta|\Bar{\nu}) = P(\Bar{\nu}|\theta)$, can be maximised to retrieve the unknown parameter which gives the observed data. The standard form for the \acrshort{ML} algorithm takes the log of the maximisation to turn the product into a sum. 
+
+\begin{equation} \label{eqn:ML}
+                \hat{\theta} = max\{\sum^{N}_{i=i}log(L(\theta|\Bar{\nu}))\}
+\end{equation}
+
+
+\subsection{Image Reconstruction}
+Once the projection data has been reconstructed the final images can be produced from the solution to equation \ref{eqn:imgRec}. Here we briefly describe the iterative approach which is used throughout this thesis. The \acrlong{MLEM} algorithm aims to produce a image model which accounts for the physical interactions involved in \acrshort{SPECT} imaging; optimising the model until it matches the acquired data, \cite{4307558}. Using the \acrshort{ML} logic described above the algorithm carries out a series of forwards and back projections in order to improve a estimated model. The algorithm is composed of two main steps; the estimation stage, and the maximisation stage. The initial estimation can be a uniform image or can be retrieved from a simple back projection of the acquisition data. The estimated model is forward projected to produce a model of the measured projection data. The projection models are then compared with the acquired data. A correction term is derived from this comparison; using the maximum likelihood technique a correction is determined and used to improve out estimation. This is the maximisation step, the result is an improved image when back projection is carried on on the estimation. However this improvement is incremental and so the steps must be repeated; improving the model and creating a image closer to the true object with each iteration.  
 
 \section{Multi-modal Imaging} % dont discuss INSERT 
 % Multi modal 
-Multimodal medical imaging technologies have gained popularity within research and clinical practice for their ability to simultaneously or sequentially acquire data from multiple systems. Individual systems can provide either functional or structural information, however many patients require multiple scans for diagnosis or treatment. The combination of this information is essential in investigations and can be achieved through methods such as spatial and time registration. However, acquiring multiple scans and registering the images takes many hours and is subject to errors such motion. Multimodal systems can solve this by acquiring both structural and functional information within one simultaneous scan, reducing scan time and improving image registration. 
+The capabilities of medical imaging continues to improve and expand, however in recent years it has become possible to combine medical imaging systems. Multimodal imaging technologies have gained popularity within research and clinical practice for their ability to simultaneously or sequentially acquire data from multiple systems. Individual systems can provide either functional or structural information, however many patients require multiple scans for diagnosis or treatment. The combination of this information is essential in investigations and can be achieved through methods such as spatial and time registration. However, acquiring multiple scans and registering the images takes many hours and is subject to errors such motion. Multimodal systems can solve this by acquiring both structural and functional information within one simultaneous scan, reducing scan time and improving image registration. 
 
-Mulitmodal systems such as \acrlong{SPECT/CT} and \acrlong{PET/MRI} have been widely implemented in the clinic as they combine anatomical information from the \acrshort{CT} and \acrshort{MR}, with the biochemical or metabolic information of \acrshort{SPECT} and \acrshort{PET}. The combination of these systems is achieved through the development of innovative technologies and designs, as well as the improved computational methods. This can prove expensive and challenging as individual systems may not be compatible. \acrshort{PET/MRI} was achieved through the development of \acrshort{MR} compatible detectors. \acrshort{PET/MR} and \acrshort{SPECT/MR} have been highly successful in the clinic as it produces combined structural and functional images, however, \acrshort{CT} introduces additional dose and is not as versatile of \acrshort{MRI}. The development of \acrshort{SPECT/MRI} promises the advantages of \acrshort{PET/MR}, but this has yet to be achieved in the clinic. This thesis outlines the use of the\acrshort{INSERT} scanner; the first clinical simultaneous \acrshort{SPECT/MRI} imaging system. The invention of this scanner was achieved due to the rise of \acrshort{MR} compatible nuclear imaging technologies, a compact system and unique collimator design. 
+Mulitmodal systems such as \acrlong{SPECT/CT} and \acrlong{PET/MRI} have been widely implemented in the clinic as they combine anatomical information from the \acrshort{CT} and \acrshort{MR}, with the biochemical or metabolic information of \acrshort{SPECT} and \acrshort{PET}. The combination of these systems is achieved through the development of innovative technologies and designs, as well as the improved computational methods. This can prove expensive and challenging as individual systems may not be compatible. \acrshort{PET/MRI} was achieved through the development of \acrshort{MR} compatible detectors. \acrshort{PET/MR} and \acrshort{SPECT/CT} have been highly successful in the clinic as it produces combined structural and functional images. 
+
+However a sequential \acrshort{SPECT/MRI} clinical system has yet to be established. The combination of \acrshort{SPECT} and \acrshort{MRI} can be carried out through sequential use of \acrshort{SPECT/CT} and \acrshort{MRI}. The data are registered to provide the \acrshort{SPECT/MR} images useful in areas should as tumour treatment planning. In the case of \acrshort{SPECT/CT}, the radiation \acrshort{CT} introduces additional dose and the acquisition is not as versatile of \acrshort{MRI}. The development of simultaneous and integrated \acrshort{SPECT/MRI} promises the advantages of \acrshort{PET/MR}. \acrshort{MRI} has proven a powerful and versatile imaging method, providing greater diagnostic information with no dose. \acrshort{SPECT} imaging is more widely available and cheaper than \acrshort{PET} systems; \acrshort{SPECT} is popular as it allows the use of more accessible radionuclides and dual-isotope imaging.
+
+It stands to reason that a simulataneous clinical \acrshort{SPECT/MR} system could provide a multifaceted imaging tool. This thesis outlines the use of the\acrshort{INSERT} scanner; the first clinical simultaneous \acrshort{SPECT/MRI} imaging system. The goal of which is to provide brain tumour imaging and treatment stratification, and establish a foundation of a completely integrated \acrshort{SPECT/MRI} system. 
 
 \begin{figure}[htp]
     \centering
     \includegraphics[width=0.9\textwidth,keepaspectratio]{INSERT_design} % name of file without extension
     \caption{The design for the partial ring INSERT system.} \label{fig:INSERT}
 \end{figure}
-
-\section{Introduction}
-
-INSERT is the world's first clinical simultaneous SPECT/MRI system. The system is a brain SPECT insert, designed for complete integration with any clinical MRI system. The stationary insert system is composed of a partial ring of 20 detector units, each with a 10x5 $cm^2$ CsI(TI) crystal, silicon photomultiplier (SiPM) and ASIC readout. A novel MR compatible collimator; the multi-mini-slit-slat (MSS), \cite{7430894}, was designed specifically for the compatibility and clinical needs of the system. The use of the MSS collimator requires the implementation of a specific calibration procedure, which was established on a single detector system, \cite{8340862}, and initially tested on a semi-operational system, \cite{inproceedings}.
-
-The partial ring MSS collimator imposes some limitations on the system's sampling. In this work we utilise a dual reconstruction technique in order to improve angular sampling of the system. Due to hardware issues we had cases of detection failure in which data were missing across a few affected units. The calibration and event reconstruction techniques were found to provide a means of correcting missing event data. The limitations of the prototype were overcome by the calibration procedure, producing successful reconstructed phantom images, which were further improved by the dual acquisition protocol.   
-
-The INSERT project has overseen the development
-of the first clinical simultaneous Single Photon Emission Computed
-Tomography (SPECT) and Magnetic Resonance Imaging
-(MRI) system. In this work we have for the first time implemented
-a novel calibration procedure and acquired tomographic images
-on the complete clinical system. The calibration procedure was
-carried out here on partial ring system, where it has previously
-been developed on a single detector. The complete calibration
-allowed us to characterise the system as well as parameterise
-the image reconstruction algorithm. The novel system design
-requires correction parameters by characterising the uniformity,
-linearity, and geometry of the system. We were able to carry
-out the tomographic imaging of several phantoms including,
-cylindrical, simplified Jaszczak, and Hoffman phantoms. During
-the reconstruction and processing of the imaging data we were
-able to overcome hardware and software issue which were
-identified in the characterisation stage. Here we were able to
-solve issue involving incomplete data sets and instabilities in
-detectors. The work carried out on the complete system allowed
-us to evaluate the feasibility of clinical use of this system, we
-were able to improve aspects of the calibration procedure and
-overcome seeming inherit limitations in the partial ring system.
-
-INSERT sets out to establish the worlds first clinical simultaneous
-SPECT MRI system. The SPECT insert is
-designed for complete integration with any standard clinical
-MRI system, allowing for the simultaneous acquisition of brain
-images.The stationary insert system is composed of a partial
-ring of 20 CsI:TI scintillation detectors, each with a silicon
-photomultiplier (SiPM) readout. The use of the multimini slitslat
-(MSS), [1], collimator requires the implementation of a
-novel calibration procedure which was established on a single
-detector system, [2]. Though proven successful on a single
-detector, it was essential to verify the methods on a complete
-partial ring system. Carrying out the calibration required
-modifications to the single detector methods; 20 detectors had
-to be calibrated individually and the ring geometry of the
-system introduce space restrictions. Here we have illustrated
-the changes carried out in the transition from a single detector to a complete detector system, outlining the steps required and
-the challenges overcome in our experiments. We also discuss
-the initial results of our extensive tomographic acquisitions
-and the methods involved in the image reconstruction.
-Development of the clinical insert established the MSS collimator,
-[1], this design requires the use of a novel calibration
-and image reconstruction. The calibration procedure generates
-a set of correction parameters from the system, which determine
-the systems uniformity, linearity, and geometry. In this
-work we have outlined the acquisition and application of these
-parameters. These acquisition corrections were applied with a
-software provided by Mediso; producing a set of projection
-images to be constructed.
-
 
