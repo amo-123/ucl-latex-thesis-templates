@@ -1,4 +1,4 @@
-\chapter{Experiments 01}
+\chapter{System Evaluation}
 \label{Milan}
 
 
@@ -17,7 +17,7 @@ The following experiments were carried out at \acrlong{HSR} (\acrshort{HSR}), in
 
 This experiments set out to acquire the first phantom images from the \acrshort{INSERT} system, in order to achieve this the system was first evaluated and calibrated. The count-rate and energy resolution were determined and the system corrections and calibrations for these parameters where carried out at Polimi. The calibration procedures required to correct for event and image reconstruction are outlined here.
 
-The calibration procedure was developed on a single detector head system \cite{DebCal}, and was tested in this investigation for the first time on the complete \acrshort{INSERT} scanner. This investigation aimed to determine the effectiveness of the proposed calibration method, and evaluate the systems performance and imaging capabilities. The calibration involves two stages, the detector calibration and the system calibration. The event reconstruction was corrected through the detector calibration procedure; a standard linearity and uniformity correction was performed. The image reconstruction was carried out using the geometric and sensitivity information obtained by the system calibration.
+The calibration procedure was developed on a single detector head system \cite{8069508}, and was tested in this investigation for the first time on the complete \acrshort{INSERT} scanner. This investigation aimed to determine the effectiveness of the proposed calibration method, and evaluate the systems performance and imaging capabilities. The calibration involves two stages, the detector calibration and the system calibration. The event reconstruction was corrected through the detector calibration procedure; a standard linearity and uniformity correction was performed. The image reconstruction was carried out using the geometric and sensitivity information obtained by the system calibration.
 
 %\section{Methods}
 \section{Detector Calibration}
@@ -38,7 +38,11 @@ The \acrshort{LRF}, uniformity, and the X/Y linearity data are input into the BU
 \section{System Calibration}
 The image reconstruction algorithm requires information of the systems geometry and sensitivity. The system calibration acquires this information through two experiments. Each experiment is carried out with the collimator fitted. The data from each experiment produces correction which are applied to the planar images during image reconstruction. 
  
-The geometric calibration has been established previously, \cite{8340862}. The geometric data is acquired from a series of scans of capillary phantoms. The capillaries have 1 mm diameter and are filled with 10 MBq of $^{99m}Tc$. Two experiments are set up to acquire the axial and trans-axial geometry of the system. 
+ \paragraph{}
+ 
+The geometric calibration has been established and tested previously on a single detector unit, \cite{8340862}. The geometric data is acquired from a series of scans of capillary phantoms. The capillaries have 1 mm diameter and are filled with 10 MBq of $^{99m}Tc$. Two experiments are set up to acquire the axial and trans-axial geometry of the system. 
+
+\paragraph{}
 
 \textbf{Axial Orientation:} The capillaries were aligned with the axial direction of the scanner. The capillaries are held on a rotating stage and positioned at 4 locations with the \acrshort{FOV}. The positions are separated by $90\degree$ and lie at radii of 25, 50, 75 and 100 mm. From these positions the capillaries are rotated about the z axes of the scanner. The capillaries are scanned for 2 minutes at 30 positions; rotating by $12\degree$ until $360\degree$ is covered. 
 
@@ -94,7 +98,7 @@ The sensitivity calibration resulted in 20 planar projections; giving a measure 
 \end{figure}
 
 \section{Discussion}
-The experiments carried out here were the first use of the calibration and acquisition procedures on the complete system. The goal of this study was to acquire the first phantom images and assess the system performance, however, we also look critically at the procedures and software used in the system. When compared to initial studies \cite{Michele} we found a degradation in system performance; this is due to ageing of the components and stress on the system from regular use. Despite this we were able to use the system extensively and collect a large quantity of data. The results of the investigation lead to changes in software, processing methods and calibration. 
+The experiments carried out here were the first use of the calibration and acquisition procedures on the complete system. The goal of this study was to acquire the first phantom images and assess the system performance, however, we also look critically at the procedures and software used in the system. When compared to initial studies \cite{8432104} we found a degradation in system performance; this is due to ageing of the components and stress on the system from regular use. Despite this we were able to use the system extensively and collect a large quantity of data. The results of the investigation lead to changes in software, processing methods and calibration. 
 
 The detector calibration revealed major issues when using the aged system. The channel instability resulted in data lost and false counts. The hot spots caused by faulty channels reduced the quality of the acquire data, requiring data channels to be removed completely from acquisition. Constant faulty channels could be switched off and accounted for with the \acrshort{LRF} models. Figure \ref{fig:killchan} demonstrates the corrections possible when using the adapted \acrshort{LRF} reconstruction. 
 
