@@ -36,7 +36,7 @@ The \acrshort{LRF}, uniformity, and the X/Y linearity data are input into the BU
 %\subsection{Linearity} 
 
 \section{System Calibration}
-The image reconstruction algorithm requires information of the systems geometry and sensitivity. The system calibration acquires this information through two experiments. Each experiment is carried out with the collimator fitted. The data from each experiment produces correction which are applied to the planar images during image reconstruction. 
+The image reconstruction algorithm requires information of the systems geometry and sensitivity \cite{Beque2003CharacterizationGeometry}. The system calibration acquires this information through two experiments. Each experiment is carried out with the collimator fitted. The data from each experiment produces correction which are applied to the planar images during image reconstruction. 
  
  \paragraph{}
  
@@ -53,9 +53,9 @@ The sensitivity calibration required data with a planar phantom, $10 * 10 * 0.5$
 \subsection{System Calibration Software}
 The data collected from the system calibration undergoes planar event reconstruction and detector calibration as described above. The resulting data was analysed in MATLAB.
 
-The geometric data was used to measure 3 system parameters of the collimator. The tilt and twist angles, and mechanical shifts were determined by modelling the variation in position and size of the capillary data. The location of each capillaries is measures with a Gaussian model by taking measurements along its length. The variation in position as a function of radial position of the axial capillaries is known as the mechanical shift in the collimator. The variation of position along the length of a trans-axial capillary is known as the twist angle. Finally the variation in position as a function of radial position of the trans-axial capillaries gives us a measure of the tilt angle. 
+The geometric data was used to measure 3 system parameters of the collimator \cite{TianyuMa2007DeterminationMicroPET}. The tilt and twist angles, and mechanical shifts were determined by modelling the variation in position and size of the capillary data. The location of each capillaries is measures with a Gaussian model by taking measurements along its length. The variation in position as a function of radial position of the axial capillaries is known as the mechanical shift in the collimator. The variation of position along the length of a trans-axial capillary is known as the twist angle. Finally the variation in position as a function of radial position of the trans-axial capillaries gives us a measure of the tilt angle. 
 
-The reconstructed sensitivity profiles gave a measure of count variation across the whole collimator. The sensitivity variation as a function of sampling angle of the aperture was modelled. Each profile was fitted using equation (\ref{sens_model}), where $\phi$ is the sampling angle, $G_{\sigma}(\phi)$ is a Gaussian function. The summation is carried out over all mini-slits $i$ for each collimator section $j$. The model is used to correct for sensitivity variation in the planar projection data. 
+The reconstructed sensitivity profiles gave a measure of count variation across the whole collimator \cite{Accorsi2008DerivationCollimation}. The sensitivity variation as a function of sampling angle of the aperture was modelled. Each profile was fitted using equation (\ref{sens_model}), where $\phi$ is the sampling angle, $G_{\sigma}(\phi)$ is a Gaussian function. The summation is carried out over all mini-slits $i$ for each collimator section $j$. The model is used to correct for sensitivity variation in the planar projection data. 
 
 \begin{equation}
 %\vspace{-0.2cm}
@@ -91,7 +91,7 @@ The sensitivity calibration resulted in 20 planar projections; giving a measure 
 \begin{figure}[!t]
 %\vspace{-0.2cm}
 \centering
-\includegraphics[width=2.9in]{figures/sns_prof.png}
+\includegraphics[width=3.4in]{figures/sns_prof.png}
 \caption{Sensitivity profiles for two collimator sections and fitted analytical functions.}
 \label{fig_sensprof}
 %\vspace{-0.2cm}
